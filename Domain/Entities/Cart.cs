@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class Cart(Guid customerId)
+    public class ShoppingCart(Guid customerId)
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
         public Guid CustomerId { get; } = customerId;
@@ -28,6 +28,15 @@ namespace Domain.Entities
             {
                 _items.Add(new CartItem(productId, productName,
                            productPrice, quantity));
+            }
+        }
+        public void RemoveItem(Guid productId, int quantity){
+            var existingItem = _items.SingleOrDefault(i => i.ProductId ==
+                                                      productId);
+
+            if (existingItem != null)
+            {
+                existingItem.Quantity = quantity;
             }
         }
     }
