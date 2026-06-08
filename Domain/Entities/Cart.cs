@@ -1,43 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+namespace Domain.Entities;
 
-namespace Domain.Entities
+public class ShoppingCart(Guid customerId)
 {
-    public class ShoppingCart(Guid customerId)
+    public Guid Id { get; private set; } = Guid.NewGuid();
+    public Guid CustomerId { get; } = customerId;
+
+    public IReadOnlyCollection<CartItem> Items =>
+         _items.AsReadOnly();
+
+    private readonly List<CartItem> _items = new();
+
+    public void AddItem(Guid productId, string productName, decimal
+                        productPrice, int quantity)
     {
-        public Guid Id { get; private set; } = Guid.NewGuid();
-        public Guid CustomerId { get; } = customerId;
+        var existingItem = _items.SingleOrDefault(i => i.ProductId ==
+                                                  productId);
 
-        public IReadOnlyCollection<CartItem> Items =>
-             _items.AsReadOnly();
-
-        private readonly List<CartItem> _items = new();
-
-        public void AddItem(Guid productId, string productName, decimal
-                            productPrice, int quantity)
+        if (existingItem != null)
         {
-            var existingItem = _items.SingleOrDefault(i => i.ProductId ==
-                                                      productId);
-
-            if (existingItem != null)
-            {
-                existingItem.Quantity += quantity;
-            }
-            else
-            {
-                _items.Add(new CartItem(productId, productName,
-                           productPrice, quantity));
-            }
+            existingItem.Quantity += quantity;
         }
-        public void RemoveItem(Guid productId, int quantity){
-            var existingItem = _items.SingleOrDefault(i => i.ProductId ==
-                                                      productId);
+        else
+        {
+            _items.Add(new CartItem(productId, productName,
+                       productPrice, quantity));
+        }
+    }
+    public void RemoveItem(Guid productId, int quantity)
+    {
+        var existingItem = _items.SingleOrDefault(i => i.ProductId ==
+                                                  productId);
 
-            if (existingItem != null)
-            {
-                existingItem.Quantity = quantity;
-            }
+        if (existingItem != null)
+        {
+            existingItem.Quantity = quantity;
         }
     }
 }
+
