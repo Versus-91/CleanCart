@@ -6,7 +6,7 @@ public class RemoveItemFromCartUseCase(IShoppingCartRepository shoppingCartRepos
 {
     public async Task RemoveItemFromCartAsync(RemoveItemFromCartInput input)
     {
-        ShoppingCart? cart = await shoppingCartRepository.GetByUserIdAsync();
+        Cart? cart = await shoppingCartRepository.GetByUserIdAsync(input.UserId);
         if (cart != null)
         {
             cart.RemoveItem(input.ProductId, input.Quantity);

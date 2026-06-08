@@ -1,7 +1,7 @@
 ﻿
 namespace Domain.Entities;
 
-public class ShoppingCart(Guid customerId)
+public class Cart(Guid customerId)
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
     public Guid CustomerId { get; } = customerId;

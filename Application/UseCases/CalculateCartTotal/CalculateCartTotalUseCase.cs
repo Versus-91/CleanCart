@@ -16,7 +16,7 @@ public class CalculateCartTotalUseCase(IShoppingCartRepository shoppingCartRepos
         return total;
     }
 
-    private decimal CalculateSubtotal(ShoppingCart? shoppingCart)
+    private decimal CalculateSubtotal(Cart? shoppingCart)
     {
         return shoppingCart?.Items.Sum(item => item.ProductPrice * item.Quantity) ?? 0;
     }
