@@ -361,3 +361,13 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+**/.nuxt/
+**/.output/
+**/.nitro/
+**/.cache/
+**/dist/
+
+# Environment & Secrets (Never commit production secrets!)
+.env
+appsettings.Production.json
